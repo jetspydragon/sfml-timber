@@ -32,7 +32,19 @@ endif()
 configure_file(include/config.h.in config.h)
 
 # Find SFML shared libraries
-find_package(SFML 2.5 COMPONENTS system window graphics network audio REQUIRED)
+# Set SFML_DIR in windows
+if (WIN32)
+    if(NOT "$ENV{SFML_HOME}" STREQUAL "")
+        include_directories($ENV{SFML_HOME}/include)
+        message("SFML Include: $ENV{SFML_HOME}/include")
+        link_directories($ENV{SFML_HOME}/lib)
+        message("SFML lib: $ENV{SFML_HOME}/lib")
+    else()
+        message(FATAL_ERROR "Environment variable SFML_HOME must be set.")
+    endif()
+else()
+    find_package(SFML 2.5 COMPONENTS system window graphics network audio REQUIRED)
+endif()
 
 # Compile executable
 add_executable(${PROJECT_NAME} ${SOURCES})
