@@ -53,7 +53,15 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include ${PROJECT_BINARY_DIR})
 
 # Link executable to required SFML libraries
-target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-audio)
+target_link_libraries(
+    ${PROJECT_NAME} 
+    sfml-main 
+    sfml-system 
+    sfml-graphics 
+    sfml-audio 
+    sfml-network 
+    sfml-window
+)
 
 # Install target
 install(TARGETS ${PROJECT_NAME} DESTINATION "${PROJECT_BINARY_DIR}/build/bin")
