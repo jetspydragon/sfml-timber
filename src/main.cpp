@@ -11,7 +11,19 @@ int main()
     sf::RenderWindow window(vm, "Timber!!!", sf::Style::Titlebar);
 
     sf::Texture textureBackground;
-    textureBackground.loadFromFile(resourcePath + "graphics/background.png");
+    sf::Texture textureTree;
+    sf::Texture textureBee;
+    sf::Texture textureCloud;
+    if (!textureBackground.loadFromFile(resourcePath + "graphics/background.png")) {
+        std::cout << resourcePath + "graphics/background.png" << std::endl;
+        std::string line;
+        std::getline(std::cin, line);
+        return -1;
+    }
+    if (!textureTree.loadFromFile(resourcePath + "graphics/tree.png")) return -1;
+    if (!textureBee.loadFromFile(resourcePath + "graphics/bee.png")) return -1;
+    if (!textureCloud.loadFromFile(resourcePath + "graphics/cloud.png")) return -1;
+    
     float scale = (float)WINDOW_WIDTH / textureBackground.getSize().x;
     sf::Vector2<float> vScale(scale, scale);
 
@@ -20,15 +32,11 @@ int main()
     spriteBackground.setScale(vScale);
     spriteBackground.setPosition(0, 0); 
 
-    sf::Texture textureTree;
-    textureTree.loadFromFile(resourcePath + "graphics/tree.png");
     sf::Sprite spriteTree;
     spriteTree.setTexture(textureTree);
     spriteTree.setScale(vScale);
     spriteTree.setPosition(810 * scale, 0);
 
-    sf::Texture textureBee;
-    textureBee.loadFromFile(resourcePath + "graphics/bee.png");
     sf::Sprite spriteBee;
     spriteBee.setTexture(textureBee);
     spriteBee.setScale(vScale);
@@ -36,8 +44,6 @@ int main()
     bool beeActive = false;
     float beeSpeed = 0.0f;
 
-    sf::Texture textureCloud;
-    textureCloud.loadFromFile(resourcePath + "graphics/cloud.png");
     sf::Sprite spriteCloud1;
     sf::Sprite spriteCloud2;
     sf::Sprite spriteCloud3;
